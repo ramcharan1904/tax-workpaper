@@ -10,7 +10,7 @@ from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from backend.app import db
+from backend.app import db, trace
 
 load_dotenv()
 
@@ -24,6 +24,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="Miraflores Workpaper", lifespan=lifespan)
+app.include_router(trace.router)
 
 
 @app.get("/api/health")
